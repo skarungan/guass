@@ -1,0 +1,25 @@
+{
+  "name": "guass",
+  "version": "0.0.1",
+  "description": "REST API for GPS Tracker",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudadic/yadayada.git"
+  },
+  "author": "Shan <shan@cloudadic.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cloudadic/yadayada/issues"
+  },
+  "homepage": "https://github.com/cloudadic/yadayada#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.0",
+    "mongoose-geojson-schema": "^2.1.2"
+  }
+}
