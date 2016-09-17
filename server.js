@@ -1,5 +1,5 @@
 var port = process.env.PORT || 80;
-var mongo_url = process.env.MONGO_URL || 'mongodb://192.168.2.103:27017/guass';
+var mongo_url = process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/guass';
 
 var express = require('express');
 var mongoose   = require('mongoose');
@@ -10,7 +10,40 @@ var gps = require('./app/models/gps');
 
 mongoose.connect(mongo_url);
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.post('/api/', function(request, response){
+  console.log(request.body);
+  var device = new gps(request.body);
+  device.save(function(err) {
+    if (err)
+      response.send(err);
+    response.send("OK");
+  });
+});
+
+app.get('/api/:device_id', function(request, response) {
+  gps.find({id: request.params.device_id}, function(err, data) {
+    if (err)
+      response.send(err);
+    response.json(data);
+  });
+});
+
+
+app.listen(port);
+console.log('Service is running and listening on ' + port);
+
+/*
+app.use(function(req, res, next) {
+  req.rawBody = '';
+  req.setEncoding('utf8');
+  req.on('data', function(chunk) {
+    req.rawBody += chunk;
+  });
+  req.on('end', function() {
+    next();
+  });
+});
 app.use(bodyParser.json());
 
 router.use(function(req, res, next) {
@@ -25,8 +58,8 @@ router.get('/', function(req, res) {
 
 router.route('/devices')
   .post(function(req, res) {
-    var device = new gps(device1);
-        device.id = req.body.id;
+    var device = new gps();
+        device._id = req.body.id;
         device.save(function(err) {
             if (err)
               res.send(err);
@@ -54,3 +87,4 @@ app.use('/api', router);
 
 app.listen(port);
 console.log('Service is running and listening on ' + port);
+*/

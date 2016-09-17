@@ -2,7 +2,10 @@ var mongoose = require('mongoose');
 var GeoJSON = require('mongoose-geojson-schema');
 
 var gpsSchema = new mongoose.Schema({
-    point: mongoose.Schema.Types.Point,
+    id: {type: String, required: true},
+    lat: String,
+    lon: String,
+    speed: String,
     timestamp: { type : Date, default: Date.now }
 });
 
