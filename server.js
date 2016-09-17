@@ -11,13 +11,21 @@ var gps = require('./app/models/gps');
 mongoose.connect(mongo_url);
 
 app.use(bodyParser.json());
-app.post('/api/', function(request, response){
+app.post('/api', function(request, response){
   console.log(request.body);
   var device = new gps(request.body);
   device.save(function(err) {
     if (err)
       response.send(err);
     response.send("OK");
+  });
+});
+
+app.get('/api', function(request, response) {
+  gps.distinct('id', function(err, data) {
+    if (err)
+      response.send(err);
+    response.json(data);
   });
 });
 
