@@ -37,6 +37,14 @@ app.get('/api/:device_id', function(request, response) {
   });
 });
 
+app.del('/api/:device_id', function(request, response) {
+  gps.find().remove({id: request.params.device_id}, function(err, data) {
+    if (err)
+      response.send(err);
+    response.json(data);
+  });
+});
+
 
 app.listen(port);
 console.log('Service is running and listening on ' + port);
