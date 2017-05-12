@@ -1,5 +1,11 @@
-node {
-  stage 'Checkout' {
-    checkout scm
+pipeline {
+  agent any
+  stages {
+    stage('test') {
+      steps {
+        sh 'ls -l'
+        sh 'pwd'
+      }
+    }
   }
 }
